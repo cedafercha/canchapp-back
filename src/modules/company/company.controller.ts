@@ -5,18 +5,18 @@ import {
     Post,
     Body
 } from '@nestjs/common';
-import { CompanyService } from './services/company.service';
+import { CompanyService } from './company.service';
 import { Company } from './schemas/company.schema';
 import { CreateCompanyDto } from './dto/CreateCompanyDto';
 
-@Controller('company')
+@Controller('api/v1/company')
 export class CompanyController {
   constructor(private readonly companyService: CompanyService) {}
 
   @Get('findAll')
   async findAll(): Promise<Company[]> {
     try {
-        return await this.companyService.findAll();   
+        return this.companyService.findAll();   
     }
     catch(e){
         console.log('Error ' + e);
@@ -26,6 +26,6 @@ export class CompanyController {
 
   @Post('create')
   async create(@Body() newCompany: CreateCompanyDto): Promise<Company> {
-    return await this.companyService.create(newCompany);
+    return this.companyService.create(newCompany);
   };
 }

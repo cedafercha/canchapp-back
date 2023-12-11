@@ -1,7 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import { Document, HydratedDocument} from 'mongoose';
 
 export type CompanyDocument = HydratedDocument<Company>;
+//export type CompanyDocument = Company & Document;
 
 @Schema()
 export class Company {
@@ -12,7 +13,7 @@ export class Company {
   address: string;
 
   @Prop()
-  coordinates: string;
+  coordinates?: string;
 
   @Prop({ required: true })
   identification: string;
