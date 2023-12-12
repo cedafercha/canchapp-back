@@ -7,7 +7,7 @@ import { Model } from "mongoose";
 
 @Injectable()
 export class CompanyRepository extends EntityRepository<CompanyDocument, CreateCompanyDto> {
-    constructor(@InjectModel(Company.name) userModel: Model<CompanyDocument>) {
-      super(userModel)
-    }
+  constructor(@InjectModel(Company.name) userModel: Model<CompanyDocument>) {
+    super(userModel)
+  }
 }

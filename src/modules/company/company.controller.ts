@@ -20,7 +20,7 @@ export class CompanyController {
     }
     catch(e){
         console.log('Error ' + e);
-        throw new InternalServerErrorException('Something bad happened', { cause: e });
+        throw new InternalServerErrorException(e.message, { cause: e });
     }
   }
 
