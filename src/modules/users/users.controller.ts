@@ -17,6 +17,7 @@ export class UsersController {
 
     @Post('create')
     async create(@Body() newUser: CreateUserDto): Promise<string> {
+        // Validar token específico!
         return this.usersService.createUser(newUser);
     };
 }

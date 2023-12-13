@@ -4,6 +4,7 @@ import { UsersRepository } from './users.repository';
 import { CompanyService } from '../company/company.service';
 import { CreateUserCompanyDto } from './dto/CreateUserCompanyDto';
 import { ProfileService } from '../profile/profile.service';
+import { User } from './schemas/user.schema';
 
 @Injectable()
 export class UsersService {
@@ -56,5 +57,9 @@ export class UsersService {
             console.log('Error ' + e);
             throw new InternalServerErrorException(e.message, { cause: e });
         }
+    };
+
+    async findOneByUserName(userName: string): Promise<User> {
+        return this.usersRepository.findOne({ userName: userName });
     };
 }
