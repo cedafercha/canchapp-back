@@ -5,6 +5,7 @@ import { CompanyService } from '../company/company.service';
 import { CreateUserCompanyDto } from './dto/CreateUserCompanyDto';
 import { ProfileService } from '../profile/profile.service';
 import { User } from './schemas/user.schema';
+import { AddCompanyToUserDto } from './dto/AddCompanyToUserDto';
 
 @Injectable()
 export class UsersService {
@@ -59,7 +60,13 @@ export class UsersService {
         }
     };
 
-    async findOneByUserName(userName: string): Promise<User> {
+    async findByUserName(userName: string): Promise<User> {
         return this.usersRepository.findOne({ userName: userName });
+    };
+
+    async addCompanyToUser(userToAdd: AddCompanyToUserDto): Promise<boolean> {
+        const company = await this.companyService.getCompanyById(userToAdd.companyId);
+
+        return this.usersRepository.addCompanyToUser(userToAdd.userName, company);
     };
 }

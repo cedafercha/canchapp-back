@@ -1,11 +1,9 @@
 import { IsEmail, IsNotEmpty } from "class-validator";
 
-export class SignInDto {
+export class AddCompanyToUserDto {
     @IsEmail()
     userName: string;
 
     @IsNotEmpty()
-    password: string;
-
-    companyId?: string;
-}
+    companyId: string;
+};
