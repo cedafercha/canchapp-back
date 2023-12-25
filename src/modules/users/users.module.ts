@@ -6,6 +6,7 @@ import { ProfileModule } from '../profile/profile.module';
 import { UsersController } from './users.controller';
 import { UsersRepository } from './users.repository';
 import { CompanyModule } from '../company/company.module';
+import { GlobalService } from 'src/global.service';
 
 @Module({
   imports: [
@@ -14,7 +15,7 @@ import { CompanyModule } from '../company/company.module';
     ProfileModule
   ],
   controllers: [UsersController],
-  providers: [UsersService, UsersRepository],
+  providers: [UsersService, UsersRepository, GlobalService],
   exports: [UsersService, UsersRepository]
 })
 export class UsersModule {}

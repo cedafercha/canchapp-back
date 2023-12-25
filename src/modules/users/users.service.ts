@@ -6,6 +6,7 @@ import { CreateUserCompanyDto } from './dto/CreateUserCompanyDto';
 import { ProfileService } from '../profile/profile.service';
 import { User } from './schemas/user.schema';
 import { AddCompanyToUserDto } from './dto/AddCompanyToUserDto';
+import { FindUserDto } from './dto/FindUserDto';
 
 @Injectable()
 export class UsersService {
@@ -14,6 +15,16 @@ export class UsersService {
         private readonly companyService: CompanyService,
         private readonly profileService: ProfileService
     ) {}
+
+    async findAll(): Promise<FindUserDto[]> {
+        const data = await this.usersRepository.findAll({});
+        return data.map(user => {
+            return {
+                userName: user.userName,
+                profile: user.profile
+            }
+        });
+    }
 
     async createFirstUser(newUserDto: CreateUserDto): Promise<string> {
         try {
@@ -37,6 +48,11 @@ export class UsersService {
 
     async createUser(newUserDto: CreateUserDto): Promise<string> {
         try {
+            // Valida que el token pertenezca a la compañía del DTO
+            if(await this.usersRepository.getCompanyId() !== newUserDto.companyId) {
+                throw new BadRequestException("Error creating user!");
+            }
+
             const [ company, profile ] = await Promise.all([
                 this.companyService.getCompanyById(newUserDto.companyId),
                 this.profileService.getProfileById(newUserDto.profileId)
