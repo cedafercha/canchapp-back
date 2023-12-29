@@ -11,6 +11,9 @@ export class Module {
 
   @Prop({ required: true })
   name: string;
+
+  @Prop({ required: true })
+  tabID: number;
 }
 
 export const ModuleSchema = SchemaFactory.createForClass(Module);

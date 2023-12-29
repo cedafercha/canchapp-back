@@ -12,6 +12,7 @@ export class ProfileRepository extends EntityRepository<ProfileDocument, CreateP
     @InjectModel(Profile.name) userModel: Model<ProfileDocument>,
     globalService: GlobalService
   ) {
-    super(userModel, globalService)
+    super(userModel, globalService);
+    this.useGetCompanyFilter = true;
   }
 }

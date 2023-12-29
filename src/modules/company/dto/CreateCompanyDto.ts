@@ -9,4 +9,6 @@ export class CreateCompanyDto {
 
     @IsNotEmpty()
     identification: string;
+
+    coordinates?: string;
 };

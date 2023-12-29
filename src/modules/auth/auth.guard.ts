@@ -76,6 +76,9 @@ export class AuthGuard implements CanActivate {
         this.isProvisionalToken = isProvisionalToken;
 
         if (isPublic) {
+            this.globalService.setCurrentCompanyId(null);
+            this.globalService.setCurrentCompany(null);
+            this.globalService.setCurrentUserId(null);
             return true;
         }
 
@@ -142,6 +145,7 @@ export class AuthGuard implements CanActivate {
 
     private async tokenAccessProcess(): Promise<boolean> {
         const companyId = this.payload.currentCompany.toString();
+        this.globalService.setCurrentUserId(this.payload.sub.toString());
 
         if(await this.globalService.getCurrentCompanyId() !== companyId) {
             this.globalService.setCurrentCompanyId(companyId);

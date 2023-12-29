@@ -7,19 +7,27 @@ import { Cache } from "cache-manager";
 export class GlobalService {
     constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache){}
 
-    public async getCurrentCompanyId() {
+    public async getCurrentCompanyId(): Promise<string> {
         return await this.cacheManager.get('currentCompanyId');
     }
 
-    public async setCurrentCompanyId(companyId: string) {
+    public async setCurrentCompanyId(companyId: string): Promise<void> {
         await this.cacheManager.set('currentCompanyId', companyId, 0);
     }
 
-    public async getCurrentCompany() {
+    public async getCurrentCompany(): Promise<Company> {
         return await this.cacheManager.get('currentCompany');
     };
 
-    public async setCurrentCompany(company: Company) {
+    public async setCurrentCompany(company: Company): Promise<void> {
         await this.cacheManager.set('currentCompany', company, 0);
+    }
+
+    public async getCurrentUserId(): Promise<string> {
+        return await this.cacheManager.get('currentUserId');
+    };
+
+    public async setCurrentUserId(userId: string): Promise<void> {
+        await this.cacheManager.set('currentUserId', userId, 0);
     }
 };

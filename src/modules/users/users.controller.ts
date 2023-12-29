@@ -8,7 +8,9 @@ import { CreateUserDto } from './dto/CreateUserDto';
 import { UsersService } from './users.service';
 import { Admin } from '../auth/decorators/admin.decorator';
 import { AddCompanyToUserDto } from './dto/AddCompanyToUserDto';
+import { User } from './schemas/user.schema';
 import { FindUserDto } from './dto/FindUserDto';
+import { Company } from '../company/schemas/company.schema';
 
 @Controller('api/v1/users')
 export class UsersController {
@@ -35,4 +37,9 @@ export class UsersController {
     async create(@Body() newUser: CreateUserDto): Promise<string> {
         return this.usersService.createUser(newUser);
     };
+
+    @Get('findCompanies')
+    async findCompanies(): Promise<Company[]> {
+        return this.usersService.findCompanies();
+    }
 }

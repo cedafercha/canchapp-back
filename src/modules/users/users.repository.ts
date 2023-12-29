@@ -14,7 +14,8 @@ export class UsersRepository extends EntityRepository<UserDocument, CreateUserCo
     globalService: GlobalService
   ) {
     super(userModel, globalService)
-    this.useCompanyFilter = true;
+    this.useGetCompanyFilter = true;
+    this.useMultiCompanyFilter = true;
   }
 
   async addCompanyToUser(userName: string, company: Company): Promise<boolean> {
@@ -28,4 +29,12 @@ export class UsersRepository extends EntityRepository<UserDocument, CreateUserCo
 
     return res.acknowledged;
   };
+
+  async findCompanies(): Promise<Company[]> {
+    const userId = await this.globalService.getCurrentUserId();
+
+    return (
+      await this.entityModel.findById({_id: userId}).populate('companies')
+    ).companies;
+  }  
 }

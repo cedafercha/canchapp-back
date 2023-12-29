@@ -7,6 +7,7 @@ import { ProfileService } from '../profile/profile.service';
 import { User } from './schemas/user.schema';
 import { AddCompanyToUserDto } from './dto/AddCompanyToUserDto';
 import { FindUserDto } from './dto/FindUserDto';
+import { Company } from '../company/schemas/company.schema';
 
 @Injectable()
 export class UsersService {
@@ -21,6 +22,7 @@ export class UsersService {
         return data.map(user => {
             return {
                 userName: user.userName,
+                isAdmin: user.isAdmin,
                 profile: user.profile
             }
         });
@@ -85,4 +87,8 @@ export class UsersService {
 
         return this.usersRepository.addCompanyToUser(userToAdd.userName, company);
     };
+
+    async findCompanies(): Promise<Company[]> {
+        return this.usersRepository.findCompanies();
+    }
 }
