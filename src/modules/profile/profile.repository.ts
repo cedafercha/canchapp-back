@@ -14,5 +14,6 @@ export class ProfileRepository extends EntityRepository<ProfileDocument, CreateP
   ) {
     super(userModel, globalService);
     this.useGetCompanyFilter = true;
+    this.useInsertCompanyFilter = true;
   }
 }

@@ -14,11 +14,11 @@ export class Profile {
   @Prop({ required: true })
   name: string;
 
-  /*@Prop({ required: true })
-  modules: Module[];*/
-
   @Prop({ required: false, type: mongoose.Schema.Types.ObjectId, ref: Company.name })
   company: Company;
+
+  @Prop({ required: true, type: [{type: mongoose.Schema.Types.ObjectId, ref: Module.name}] })
+  modules: [Module];
 }
 
 export const ProfileSchema = SchemaFactory.createForClass(Profile);

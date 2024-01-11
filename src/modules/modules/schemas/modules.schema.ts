@@ -12,7 +12,7 @@ export class Module {
   @Prop({ required: true })
   name: string;
 
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true })
   tabID: number;
 }
 

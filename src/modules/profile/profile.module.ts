@@ -10,7 +10,7 @@ import { ProfileController } from './profile.controller';
 @Module({
     imports: [
         MongooseModule.forFeature([{ name: Profile.name, schema: ProfileSchema }]),
-        // ModulesModule
+        ModulesModule
     ],
     controllers: [ProfileController],
     providers: [ProfileService, ProfileRepository, GlobalService],

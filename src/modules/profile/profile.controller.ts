@@ -2,6 +2,7 @@ import { Body, Controller, Get, Post, Param, Query } from "@nestjs/common";
 import { ProfileService } from "./profile.service";
 import { Profile } from "./schemas/profile.schema";
 import { CreateProfileDto } from "./dto/CreateProfileDto";
+import { AddModulesProfileDto } from "./dto/AddModulesProfileDto";
 
 @Controller('api/v1/profile')
 export class ProfileController {
@@ -20,5 +21,10 @@ export class ProfileController {
     @Post('create')
     async create(@Body() newProfile: CreateProfileDto): Promise<Profile> {
         return this.profileService.create(newProfile);
+    };
+
+    @Post('addModules')
+    async addModules(@Body() profileData: AddModulesProfileDto): Promise<Profile> {
+        return this.profileService.addModules(profileData);
     };
 }
