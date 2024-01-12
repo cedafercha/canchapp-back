@@ -3,7 +3,8 @@ import {
     Get,
     InternalServerErrorException,
     Post,
-    Body
+    Body,
+    Param
 } from '@nestjs/common';
 import { CompanyService } from './company.service';
 import { Company } from './schemas/company.schema';
@@ -25,6 +26,11 @@ export class CompanyController {
         console.log('Error ' + e);
         throw new InternalServerErrorException(e.message, { cause: e });
     }
+  }
+
+  @Get('find/:id')
+  async getProfileById(@Param('id') companyId: string): Promise<Company> {
+      return this.companyService.getCompanyById(companyId);
   }
 
   @Admin()
