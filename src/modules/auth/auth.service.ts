@@ -36,6 +36,7 @@ export class AuthService {
             companies: user.companies,
             profile: user.profile,
             isProvisional: isProvisionalToken,
+            isAdmin: user.isAdmin || false,
             currentCompany
         };
 

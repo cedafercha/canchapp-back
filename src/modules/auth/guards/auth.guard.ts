@@ -5,16 +5,16 @@ import {
     UnauthorizedException,
   } from '@nestjs/common';
   import { JwtService } from '@nestjs/jwt';
-  import { JWT_SECRET } from './constants/constants';
+  import { JWT_SECRET } from '../constants/constants';
   import { Request } from 'express';
 import { Reflector } from '@nestjs/core';
-import { IS_PUBLIC_KEY } from './decorators/public.decorator';
-import { IS_PROVISIONAL_TOKEN_KEY } from './decorators/provisional.token.decorator';
-import { IS_ADMIN_KEY } from './decorators/admin.decorator';
-import { IJwtPayload } from './interfaces/jwt.payload';
+import { IS_PUBLIC_KEY } from '../decorators/public.decorator';
+import { IS_PROVISIONAL_TOKEN_KEY } from '../decorators/provisional.token.decorator';
+import { IS_ADMIN_KEY } from '../decorators/admin.decorator';
+import { IJwtPayload } from '../interfaces/jwt.payload';
 import { GlobalService } from 'src/global.service';
-import { CompanyService } from '../company/company.service';
-import { DecoratorCaseEnum, TokenCaseEnum } from './enums/enums';
+import { CompanyService } from '../../company/company.service';
+import { DecoratorCaseEnum, TokenCaseEnum } from '../enums/enums';
   
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -79,6 +79,7 @@ export class AuthGuard implements CanActivate {
             this.globalService.setCurrentCompanyId(null);
             this.globalService.setCurrentCompany(null);
             this.globalService.setCurrentUserId(null);
+            this.globalService.setIsAdminUser(false);
             return true;
         }
 
@@ -146,6 +147,7 @@ export class AuthGuard implements CanActivate {
     private async tokenAccessProcess(): Promise<boolean> {
         const companyId = this.payload.currentCompany.toString();
         this.globalService.setCurrentUserId(this.payload.sub.toString());
+        this.globalService.setIsAdminUser(this.payload.isAdmin ?? false);
 
         if(await this.globalService.getCurrentCompanyId() !== companyId) {
             this.globalService.setCurrentCompanyId(companyId);

@@ -30,4 +30,12 @@ export class GlobalService {
     public async setCurrentUserId(userId: string): Promise<void> {
         await this.cacheManager.set('currentUserId', userId, 0);
     }
+
+    public async getIsAdminUser(): Promise<boolean> {
+        return await this.cacheManager.get('isAdminUser');
+    };
+
+    public async setIsAdminUser(isAdmin: boolean): Promise<void> {
+        await this.cacheManager.set('isAdminUser', isAdmin, 0);
+    }
 };

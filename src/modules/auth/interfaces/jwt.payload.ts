@@ -5,6 +5,7 @@ export interface IJwtPayload {
     sub: string;
     userName: string;
     isProvisional: boolean;
+    isAdmin: boolean;
     companies: Company[];
     profile?: Profile;
     currentCompany?: Company;
