@@ -55,6 +55,10 @@ export abstract class EntityRepository<MongoModel extends Document, Dto> {
     }).exec()
   }
 
+  async findOneAndDelete(entityFilterQuery: FilterQuery<MongoModel>): Promise<MongoModel | null> {
+    return this.entityModel.findOneAndDelete(entityFilterQuery).exec();
+  }
+
   async getFilterByCompanyId(entityFilterQuery: FilterQuery<MongoModel>): Promise<FilterQuery<MongoModel>> {
     const companyId = await this.getCompanyId();
     if(companyId){

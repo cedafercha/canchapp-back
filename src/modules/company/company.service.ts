@@ -25,12 +25,18 @@ export class CompanyService {
     return this.companyRepository.create(newCompany);
   }
 
-  async update(companyData: UpdateCompanyDto): Promise<Company> {
-    const company = await this.globalService.getCurrentCompany();
+  async update(companyData: UpdateCompanyDto, companyId?: string): Promise<Company> {
+    const company = await this.getCompany(companyId);
 
     const companyUpdated = this.assignCompanyData(companyData, company);
 
     return this.companyRepository.findOneAndUpdate({ _id: company._id }, companyUpdated);
+  }
+
+  private async getCompany(companyId?: string): Promise<Company> {
+    return companyId
+      ? await this.getCompanyById(companyId)
+      : await this.globalService.getCurrentCompany();
   }
 
   assignCompanyData(companyData: UpdateCompanyDto, company: Company): Company {
@@ -44,4 +50,8 @@ export class CompanyService {
     
     return company;
   }
+
+  async delete(companyId: string) {
+    return this.companyRepository.findOneAndDelete({ _id: companyId });
+  } 
 }
