@@ -1,4 +1,5 @@
-import { IsNotEmpty } from "class-validator";
+import { IsArray, IsEnum, IsNotEmpty } from "class-validator";
+import { ActionEnum } from "../enums/actions.enums";
 
 export class CreateModuleDto {
     @IsNotEmpty()
@@ -6,4 +7,8 @@ export class CreateModuleDto {
 
     @IsNotEmpty()
     tabID: number;
+
+    @IsNotEmpty()
+    @IsEnum(ActionEnum, { each: true })
+    actions: ActionEnum[];
 }
