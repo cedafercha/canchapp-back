@@ -1,9 +1,10 @@
-import { IsNotEmpty } from "class-validator";
+import { ArrayNotEmpty, IsNotEmpty } from "class-validator";
+import { CreateModuleActionsDto } from "./CreateModuleActionsDto";
 
 export class AddModulesProfileDto {
     @IsNotEmpty()
     profileId: string;
 
-    @IsNotEmpty()
-    modules?: string[];
+    @ArrayNotEmpty()
+    modules: CreateModuleActionsDto[];
 }

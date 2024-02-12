@@ -57,7 +57,7 @@ export class UsersService {
 
             const [ company, profile ] = await Promise.all([
                 this.companyService.getCompanyById(newUserDto.companyId),
-                this.profileService.getProfileById(newUserDto.profileId)
+                this.profileService.getProfileByIdIntern(newUserDto.profileId)
             ]);
 
             if(company && profile) {

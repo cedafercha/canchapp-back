@@ -1,9 +1,9 @@
 import { IsNotEmpty } from "class-validator";
+import { CreateModuleActionsDto } from "./CreateModuleActionsDto";
 
 export class CreateProfileDto {
     @IsNotEmpty()
     name: string;
 
-    // Opcional agregar módulos desde la creación del perfil!
-    modules?: string[];
+    modules?: CreateModuleActionsDto[];
 }
